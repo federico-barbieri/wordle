@@ -52,11 +52,35 @@ describe('WordleBoard', () => {
   })
 
   test("If a word of the day provided does not have exactly 5 characters, a warning is emitted", async () => {
-    vi.spyOn(console, "warn")
+
+    console.warn = vi.fn()
+
     // Arrange phase
     mount(WordleBoard, {props: {wordOfTheDay: "FLY"}})
 
     expect(console.warn).toHaveBeenCalled()
     
+  })
+
+  test("If a word of the day is not all in uppercase, a warning is emitted", async() => {
+
+    console.warn = vi.fn()
+
+    // Arrange phase
+    mount(WordleBoard, {props: {wordOfTheDay: "tests"}})
+
+    expect(console.warn).toHaveBeenCalled()
+
+  })
+
+  test("If a word of the day is not a real word, a warning is emitted", async() => {
+
+    console.warn = vi.fn()
+
+    // Arrange phase
+    mount(WordleBoard, {props: {wordOfTheDay: "QKFIR"}})
+
+    expect(console.warn).toHaveBeenCalled()
+
   })
 })
