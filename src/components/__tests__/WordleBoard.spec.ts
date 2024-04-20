@@ -92,4 +92,13 @@ describe('WordleBoard', () => {
 
     expect(console.warn).not.toHaveBeenCalled()
   })
+
+  test("if a word is numbers a warning is emitted", async() => {
+    console.warn = vi.fn()
+
+    // Arrange phase
+    mount(WordleBoard, {props: {wordOfTheDay: 123}})
+
+    expect(console.warn).toHaveBeenCalled()
+  })
 })
