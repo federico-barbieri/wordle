@@ -65,52 +65,23 @@ describe('WordleBoard', () => {
 
     test.each(
       [
-        "FLY", "tests", "QWERT"
+        {wordOfTheDay: "FLY", reason: "Word of the day must have 5 characters"},
+        {wordOfTheDay: "tests", reason: "Word of the day must be all in upper case"},
+        {wordOfTheDay: "QWERT", reason: "Word of the day must be a valid English word"},
       ]
-    )
-
-
-  // test 1
-
-
-  test("If '%s' does not have exactly 5 characters, a warning is emitted", async (wordOfTheDay) => {
+    )("Since $reason: $wordOfTheDay is invalid, therefore a warning must be emitted", async ({wordOfTheDay}) => {
 
     console.warn = vi.fn()
 
     // Arrange phase
-    mount(WordleBoard, {props: {wordOfTheDay: wordOfTheDay}})
+    mount(WordleBoard, {props: {wordOfTheDay}})
 
     expect(console.warn).toHaveBeenCalled()
     
   })
+  
 
   // test 2
-
-  test("If a word of the day is not all in uppercase, a warning is emitted", async() => {
-
-    console.warn = vi.fn()
-
-    // Arrange phase
-    mount(WordleBoard, {props: {wordOfTheDay: "tests"}})
-
-    expect(console.warn).toHaveBeenCalled()
-
-  })
-
-  // test 3
-
-  test("If a word of the day is not a real word, a warning is emitted", async() => {
-
-    console.warn = vi.fn()
-
-    // Arrange phase
-    mount(WordleBoard, {props: {wordOfTheDay: "QKFIR"}})
-
-    expect(console.warn).toHaveBeenCalled()
-
-  })
-
-  // test 4
 
   test("if a real word of 5 characters and uppercase is provided, no warning is emitted", async() => {
     console.warn = vi.fn()
